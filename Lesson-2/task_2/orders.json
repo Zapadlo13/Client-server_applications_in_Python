@@ -1,0 +1,60 @@
+{
+    "orders": [
+        {
+            "item": "computer",
+            "quantity": "1",
+            "price": "5000",
+            "buyer": "Ivanov I.I.",
+            "date": "17.04.2022"
+        },
+        {
+            "item": "компьютер",
+            "quantity": "1",
+            "price": "15000",
+            "buyer": "Petrov I.I.",
+            "date": "17.04.2022"
+        },
+        {
+            "item": "printer",
+            "quantity": "1",
+            "price": "5000",
+            "buyer": "Ivanov I.I.",
+            "date": "17.04.2022"
+        },
+        {
+            "item": "принтер",
+            "quantity": "1",
+            "price": "15000",
+            "buyer": "Petrov I.I.",
+            "date": "17.04.2022"
+        },
+        {
+            "item": "computer",
+            "quantity": "1",
+            "price": "5000",
+            "buyer": "Ivanov",
+            "date": "17.04.2022"
+        },
+        {
+            "item": "компьютер",
+            "quantity": "1",
+            "price": "15000",
+            "buyer": "Петров",
+            "date": "17.04.2022"
+        },
+        {
+            "item": "printer",
+            "quantity": "1",
+            "price": "5000",
+            "buyer": "Ivanov",
+            "date": "17.04.2022"
+        },
+        {
+            "item": "принтер",
+            "quantity": "1",
+            "price": "15000",
+            "buyer": "Петров",
+            "date": "17.04.2022"
+        }
+    ]
+}
