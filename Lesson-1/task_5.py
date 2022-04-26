@@ -12,4 +12,4 @@ def ping(resource):
 
 
 ping('yandex.ru')
-ping('youtube.co')
+ping('youtube.com')
