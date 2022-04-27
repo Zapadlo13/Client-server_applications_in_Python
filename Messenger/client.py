@@ -1,13 +1,15 @@
 """Программа-клиент"""
 
+import log.client_log_config
 import sys
 import json
 import socket
 import time
 
 from common.variables import ACTION, PRESENCE, TIME, USER, ACCOUNT_NAME, \
-    RESPONSE, ERROR, DEFAULT_IP_ADDRESS, DEFAULT_PORT, PROBE, MSG, QUIT, AUTHENTICATE, JOIN, LEAVE
+    RESPONSE, ERROR, DEFAULT_IP_ADDRESS, DEFAULT_PORT, PROBE, MSG, QUIT, AUTHENTICATE, JOIN, LEAVE,LOG_CLIENT
 from common.utils import get_message, send_message
+
 
 
 def create_presence(account_name='Guest'):
@@ -41,6 +43,7 @@ def process_ans(message):
 
 
 def main():
+
     '''Загружаем параметы коммандной строки'''
     # client.py 192.168.0.100 8079
     try:
@@ -52,8 +55,9 @@ def main():
     except IndexError:
         server_address = DEFAULT_IP_ADDRESS
         server_port = DEFAULT_PORT
+        LOG_CLIENT.error('Не указан порт подключения')
     except ValueError:
-        print('В качестве порта может быть указано только число в диапазоне от 1024 до 65535.')
+        LOG_CLIENT.critical('В качестве порта может быть указано только число в диапазоне от 1024 до 65535.')
         sys.exit(1)
 
     # Инициализация сокета и обмен
@@ -82,12 +86,12 @@ def main():
         answer = process_ans(get_message(transport))
         print(answer)
         if '200' in  answer:
-            print(f'Сообщение прошло успешно')
+            LOG_CLIENT.info(f'Сообщение прошло успешно')
         else:
-            print(f'В сообщении есть ошибки: {answer}')
+            LOG_CLIENT.error(f'В сообщении есть ошибки: {answer}')
 
     except (ValueError, json.JSONDecodeError):
-        print('Не удалось декодировать сообщение сервера.')
+        LOG_CLIENT.error('Не удалось декодировать сообщение сервера.')
 
 
 if __name__ == '__main__':
