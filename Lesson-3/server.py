@@ -9,7 +9,7 @@ from common.utils import get_message, send_message
 
 
 def check_action(message):
-    if ACTION_LIST.index(message[ACTION])!=-1:
+    if (message[ACTION]) in ACTION_LIST:
         return True
     else:
         return False

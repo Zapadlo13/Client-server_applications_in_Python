@@ -36,15 +36,21 @@ def readfile(filename):
             print(line)
 
 
-lst = ['сетевое программирование', 'сокет', 'декоратор']
-filename = 'test_file.txt'
+def main():
+    lst = ['сетевое программирование', 'сокет', 'декоратор']
+    filename = 'test_file.txt'
 
-createfile(filename, lst)
-encoding = getencoding(filename)
-print(f'Кодировка файла:{encoding}')
-if encoding != 'utf-8':
-    encoding_convert(filename,encoding)
+    createfile(filename, lst)
+    encoding = getencoding(filename)
 
-encoding = getencoding(filename)
-print(f'Кодировка файла:{encoding}')
-readfile(filename)
+    print(f'Кодировка файла:{encoding}')
+    if encoding != 'utf-8':
+        encoding_convert(filename,encoding)
+
+    encoding = getencoding(filename)
+    print(f'Кодировка файла:{encoding}')
+    readfile(filename)
+
+if __name__ == '__main__':
+    main()
+
