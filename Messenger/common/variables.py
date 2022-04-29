@@ -1,4 +1,13 @@
 """Константы"""
+import logging
+
+
+"""Настройки логера"""
+
+LOG_CLIENT = logging.getLogger('client')
+LOG_SERVER = logging.getLogger('server')
+FORMATTER = logging.Formatter("%(asctime)-15s  %(levelname)-10s %(module)-20s %(funcName)-20s  %(message)s")
+DEFAULT_LEVEL = logging.INFO
 
 # Порт по умолчанию для сетевого ваимодействия
 DEFAULT_PORT = 7777
