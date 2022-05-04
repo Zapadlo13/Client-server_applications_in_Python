@@ -7,19 +7,20 @@ from common.variables import ACTION_LIST, ACTION, ACCOUNT_NAME, RESPONSE, MAX_CO
     PRESENCE, TIME, USER, ERROR, DEFAULT_PORT, PROBE, MSG, QUIT, AUTHENTICATE, JOIN, LEAVE, LOG_SERVER
 from common.utils import get_message, send_message
 import log.server_log_config
+from decos import log
 
-
+@log
 def check_action(message):
     if (message[ACTION]) in ACTION_LIST:
         return True
     else:
         return False
 
-
+@log
 def presence_message(message):
     LOG_SERVER.info(f'Добро пожаловать в наш чат {message[USER][ACCOUNT_NAME]} ')
 
-
+@log
 def process_message(message):
     if message[ACTION] == PRESENCE:
         presence_message(message)
@@ -36,7 +37,7 @@ def process_message(message):
     elif message[ACTION] == LEAVE:
         pass
 
-
+@log
 def process_client_message(message):
     '''
     Обработчик сообщений от клиентов, принимает словарь -
