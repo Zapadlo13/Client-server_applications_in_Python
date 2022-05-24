@@ -26,6 +26,9 @@ ACTION = 'action'
 TIME = 'time'
 USER = 'user'
 ACCOUNT_NAME = 'account_name'
+SENDER = 'sender'
+MESSAGE = 'message'
+MESSAGE_TEXT = 'mess_text'
 
 # Прочие ключи, используемые в протоколе
 
@@ -39,3 +42,4 @@ LEAVE = 'leave'
 
 RESPONSE = 'response'
 ERROR = 'error'
+

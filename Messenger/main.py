@@ -6,19 +6,20 @@ PROCESS = []
 
 while True:
     ACTION = input('Выберите действие: q - выход, '
-                   's - запустить сервер и клиенты, x - закрыть все окна: ')
+                   's - запустить сервер c- запустить клиенты, x - закрыть все окна: ')
 
     if ACTION == 'q':
         break
     elif ACTION == 's':
-        PROCESS.append(subprocess.Popen('python server.py -p 7777 -a 127.0.0.1',
+        PROCESS.append(subprocess.Popen('python server.py',
                                         creationflags=subprocess.CREATE_NEW_CONSOLE))
+    elif ACTION == 'c':
+        PROCESS.append(subprocess.Popen('python client.py -m listen',
+                                        creationflags=subprocess.CREATE_NEW_CONSOLE))  # Слушаем
 
-        PROCESS.append(subprocess.Popen('python client.py 127.0.0.1 7777 presence',
-                                        creationflags=subprocess.CREATE_NEW_CONSOLE)) # Выдает привествие
+        PROCESS.append(subprocess.Popen('python client.py -m send',
+                                        creationflags=subprocess.CREATE_NEW_CONSOLE))  # Говорит
 
-        PROCESS.append(subprocess.Popen('python client.py 127.0.0.1 7777 presece',
-                                        creationflags=subprocess.CREATE_NEW_CONSOLE)) # Выдает ошибку!!!
 
     elif ACTION == 'x':
         while PROCESS:
