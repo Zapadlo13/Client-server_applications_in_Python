@@ -1,59 +1,51 @@
-import unittest
+"""Unit-тесты сервера"""
+
 import sys
 import os
-
+import unittest
 sys.path.append(os.path.join(os.getcwd(), '..'))
-from common.variables import RESPONSE, ERROR, USER, ACCOUNT_NAME, TIME, ACTION, PRESENCE, ENCODING
-from server import process_client_message,process_message
+from common.variables import RESPONSE, ERROR, USER, ACCOUNT_NAME, TIME, ACTION, PRESENCE
+from server import process_client_message
 
-import time
-
-
-class Test_Server(unittest.TestCase):
-
+class TestServer(unittest.TestCase):
+    '''
+    В сервере только 1 функция для тестирования
+    '''
     err_dict = {
         RESPONSE: 400,
         ERROR: 'Bad Request'
     }
     ok_dict = {RESPONSE: 200}
 
-    TIME = time.time()
-    ACCOUNT_NAME =  'Guest'
-    WRONG_ACCOUNT_NAME = 'Guest123456'
-
-    """process_client_message"""
-
-    def test_wrong_action(self):
-        """Ошибка если токого действия нету"""
-        self.assertEqual(process_client_message(
-            {ACTION: 'MSG', TIME: self.TIME, USER: {ACCOUNT_NAME: self.ACCOUNT_NAME}}), self.err_dict)
-        self.assertEqual(process_client_message(
-            {ACTION: 'Presence', TIME: self.TIME, USER: {ACCOUNT_NAME: self.ACCOUNT_NAME}}), self.err_dict)
-
     def test_no_action(self):
         """Ошибка если нет действия"""
         self.assertEqual(process_client_message(
-            {TIME: self.TIME, USER: {ACCOUNT_NAME: self.ACCOUNT_NAME}}), self.err_dict)
+            {TIME: '1.1', USER: {ACCOUNT_NAME: 'Guest'}}), self.err_dict)
+
+    def test_wrong_action(self):
+        """Ошибка если неизвестное действие"""
+        self.assertEqual(process_client_message(
+            {ACTION: 'Wrong', TIME: '1.1', USER: {ACCOUNT_NAME: 'Guest'}}), self.err_dict)
 
     def test_no_time(self):
-        """Ошибка если нет времени"""
+        """Ошибка, если  запрос не содержит штампа времени"""
         self.assertEqual(process_client_message(
-            {ACTION: PRESENCE, USER: {ACCOUNT_NAME: self.ACCOUNT_NAME}}), self.err_dict)
+            {ACTION: PRESENCE, USER: {ACCOUNT_NAME: 'Guest'}}), self.err_dict)
 
     def test_no_user(self):
-        """Ошибка если нет пользователя"""
+        """Ошибка - нет пользователя"""
         self.assertEqual(process_client_message(
-            {ACTION: PRESENCE, TIME: self.TIME }), self.err_dict)
+            {ACTION: PRESENCE, TIME: '1.1'}), self.err_dict)
 
-    def test_wrong_user(self):
-        """Ошибка если нет пользователя"""
+    def test_unknown_user(self):
+        """Ошибка - не Guest"""
         self.assertEqual(process_client_message(
-            {ACTION: PRESENCE, TIME: self.TIME, USER: {ACCOUNT_NAME: self.WRONG_ACCOUNT_NAME}}), self.err_dict)
+            {ACTION: PRESENCE, TIME: 1.1, USER: {ACCOUNT_NAME: 'Guest1'}}), self.err_dict)
 
     def test_ok_check(self):
         """Корректный запрос"""
         self.assertEqual(process_client_message(
-            {ACTION: PRESENCE, TIME:self.TIME, USER: {ACCOUNT_NAME: self.ACCOUNT_NAME}}), self.ok_dict)
+            {ACTION: PRESENCE, TIME: 1.1, USER: {ACCOUNT_NAME: 'Guest'}}), self.ok_dict)
 
 
 if __name__ == '__main__':
