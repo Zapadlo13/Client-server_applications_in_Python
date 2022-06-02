@@ -4,8 +4,6 @@ import sys
 import os
 import unittest
 import json
-import time
-
 sys.path.append(os.path.join(os.getcwd(), '..'))
 from common.variables import RESPONSE, ERROR, USER, ACCOUNT_NAME, TIME, ACTION, PRESENCE, ENCODING
 from common.utils import get_message, send_message
@@ -51,9 +49,9 @@ class Tests(unittest.TestCase):
     '''
     test_dict_send = {
         ACTION: PRESENCE,
-        TIME: time.time(),
+        TIME: 111111.111111,
         USER: {
-            ACCOUNT_NAME: 'Guest'
+            ACCOUNT_NAME: 'test_test'
         }
     }
     test_dict_recv_ok = {RESPONSE: 200}
@@ -76,8 +74,7 @@ class Tests(unittest.TestCase):
         # сравниваем результат довренного кодирования и результат от тестируемой функции
         self.assertEqual(test_socket.encoded_message, test_socket.receved_message)
         # дополнительно, проверим генерацию исключения, при не словаре на входе.
-        with self.assertRaises(Exception):
-            send_message(test_socket, test_socket)
+        self.assertRaises(TypeError, send_message, test_socket, 1111)
 
     def test_get_message(self):
         """
